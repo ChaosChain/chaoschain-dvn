@@ -361,7 +361,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **GitHub Issues**: [Report bugs or request features](https://github.com/chaoschain/dvn-poc/issues)
 - **Discussions**: [Join community discussions](https://github.com/chaoschain/dvn-poc/discussions)
 - **Documentation**: [Read the docs](docs/)
-- **Twitter**: [@ChaosChain](https://twitter.com/chaoschain)
+- **X/Twitter**: [@ChaosChain](https://x.com/ch40schain)
 
 ---
 
