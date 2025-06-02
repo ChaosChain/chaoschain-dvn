@@ -1,0 +1,41 @@
+# ChaosChain DVN PoC Environment Configuration
+
+# Ethereum Network Configuration
+SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
+# Alternative Sepolia RPC URLs:
+# SEPOLIA_RPC_URL=https://rpc.sepolia.org
+# SEPOLIA_RPC_URL=https://sepolia.gateway.tenderly.co
+
+# Private key for deployment (without 0x prefix)
+# ⚠️  NEVER commit your real private key to version control!
+PRIVATE_KEY=your_private_key_here
+
+# Etherscan API key for contract verification
+ETHERSCAN_API_KEY=your_etherscan_api_key_here
+
+# Gas reporting (set to true to enable gas reporting during tests)
+REPORT_GAS=false
+
+# IPFS Configuration (for agent scripts)
+IPFS_NODE_URL=https://ipfs.infura.io:5001
+IPFS_PROJECT_ID=your_ipfs_project_id
+IPFS_PROJECT_SECRET=your_ipfs_project_secret
+
+# Alternative public IPFS nodes:
+# IPFS_NODE_URL=https://ipfs.io
+# IPFS_NODE_URL=http://localhost:5001
+
+# Agent Configuration
+WORKER_AGENT_PRIVATE_KEY=worker_agent_private_key_here
+VERIFIER_AGENT_1_PRIVATE_KEY=verifier_1_private_key_here
+VERIFIER_AGENT_2_PRIVATE_KEY=verifier_2_private_key_here
+VERIFIER_AGENT_3_PRIVATE_KEY=verifier_3_private_key_here
+
+# Demo Configuration
+DEMO_MODE=true
+AUTO_PROCESS_CONSENSUS=true
+VERIFICATION_TIMEOUT_MINUTES=10
+
+# Logging
+LOG_LEVEL=info
+ENABLE_DEBUG_LOGS=false 

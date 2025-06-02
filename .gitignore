@@ -1,0 +1,230 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Hardhat specific
+cache/
+artifacts/
+coverage/
+coverage.json
+typechain/
+typechain-types/
+
+# Build artifacts
+build/
+dist/
+
+# Test outputs
+.nyc_output/
+test-results/
+junit.xml
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+*.temp
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Python virtual environments (for Phase 2 agents)
+venv/
+env/
+ENV/
+.venv/
+.env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local deployment configurations
+config/deployment-localhost.json
+config/deployment-hardhat.json
+config/network_config.json
+
+# IPFS local data
+.ipfs/
+
+# Private keys and sensitive data
+private_keys/
+secrets/
+*.key
+*.pem
+
+# Gas reports
+gasReporterOutput.json
+
+# Solhint cache
+.solhint.json
+
+# Documentation build
+docs/_build/
+docs/site/
+
+# Contract verification artifacts
+.openzeppelin/
+.brownie/
+
+# Local blockchain data
+ganache_db/
+blockchain_data/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Archive files
+*.tar
+*.zip
+*.rar
+*.7z
+
+# Large files that shouldn't be in git
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Configuration files that might contain sensitive info
+config/production.json
+config/staging.json
+config/development.json
+
+# Ignore any files with "private" or "secret" in the name
+*private*
+*secret*
+*SECRET*
+*PRIVATE* 
+
+.cursorrules
+DVN.md
+PHASE_1_COMPLETION_SUMMARY.md
+PoC_short.md
+ChaosChain_litepaper.md
+DVN-PoC-Implementation-Plan.md

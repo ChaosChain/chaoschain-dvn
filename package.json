@@ -1,0 +1,54 @@
+{
+  "name": "chaoschain-dvn-poc",
+  "version": "1.0.0",
+  "description": "ChaosChain Decentralized Verification Network Proof-of-Concept",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "setup-demo": "hardhat run scripts/setup-demo.js --network sepolia",
+    "verify-deployment": "hardhat run scripts/verify-deployment.js --network sepolia",
+    "node": "hardhat node",
+    "clean": "hardhat clean"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "dvn",
+    "proof-of-concept",
+    "chaoschain",
+    "agent-verification"
+  ],
+  "author": "ChaosChain Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "chai": "^4.3.10",
+    "ethereum-waffle": "^4.0.10",
+    "hardhat": "^2.19.2",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.6",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2",
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chaoschain/dvn-poc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chaoschain/dvn-poc/issues"
+  },
+  "homepage": "https://github.com/chaoschain/dvn-poc#readme"
+} 
