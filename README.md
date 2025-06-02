@@ -95,8 +95,8 @@ The DVN consists of five core smart contracts working together:
 
 ```bash
 # Clone the repository
-git clone https://github.com/chaoschain/dvn-poc.git
-cd dvn-poc
+git clone https://github.com/ChaosChain/chaoschain-dvn.git
+cd chaoschain-dvn
 
 # Install dependencies
 npm install
