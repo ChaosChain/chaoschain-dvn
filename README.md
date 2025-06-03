@@ -44,24 +44,24 @@ Consensus Engine]
 
     %% Agent Registration
     WA -->|Registers| Registry
-    VAs -->|Register & Stake| Registry
+    VAs -->|"Register & Stake"| Registry
 
     %% Work Submission Flow
-    WA -->|1. Uploads PoA Package| IPFS
-    WA -->|2. Submits PoA IPFS Hash & Fee| Studio
+    WA -->|"1. Uploads PoA Package"| IPFS
+    WA -->|"2. Submits PoA IPFS Hash & Fee"| Studio
 
     %% Studio Processing
-    Studio -->|3. Verifies WA Registration| Registry
-    Studio -->|4. Triggers Verification Process| Consensus
+    Studio -->|"3. Verifies WA Registration"| Registry
+    Studio -->|"4. Triggers Verification Process"| Consensus
 
     %% Consensus & Attestation Flow
-    Consensus -->|5. Queries VA Info (Stake, Reputation)| Registry
-    Consensus -->|6. Opens Submission for Attestations| Attestation
-    Attestation -->|7. Queries VA Info (Is Registered/Active)| Registry
-    VAs -->|8. Submit Attestations| Attestation
-    Consensus -->|9. Retrieves Attestations| Attestation
-    Consensus -->|10. Closes Submission Window| Attestation
-    Consensus -->|11. Finalizes PoA Status & Updates Studio| Studio
+    Consensus -->|"5. Queries VA Info (Stake, Reputation)"| Registry
+    Consensus -->|"6. Opens Submission for Attestations"| Attestation
+    Attestation -->|"7. Queries VA Info (Is Registered/Active)"| Registry
+    VAs -->|"8. Submit Attestations"| Attestation
+    Consensus -->|"9. Retrieves Attestations"| Attestation
+    Consensus -->|"10. Closes Submission Window"| Attestation
+    Consensus -->|"11. Finalizes PoA Status & Updates Studio"| Studio
 
     classDef offChain fill:#f9f,stroke:#333,stroke-width:2px;
     classDef contract fill:#bbf,stroke:#333,stroke-width:2px;
