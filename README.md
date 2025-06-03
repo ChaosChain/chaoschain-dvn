@@ -20,48 +20,52 @@ Unlike traditional blockchain systems that verify transactions, the DVN verifies
 
 ## 🏗️ Architecture
 
-The DVN consists of several core smart contracts and off-chain components working together:
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           ChaosChain DVN Architecture                        │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-```mermaid
-graph TD
-    subgraph OffChain["Off-Chain Actors & Storage"]
-        WA[Worker Agent]
-        VAs[Verifier Agents]
-        IPFS[(IPFS<br/>PoA Package Storage)]
-    end
+Off-Chain Components                Smart Contracts (Sepolia)
+┌─────────────────┐                ┌──────────────────────────┐
+│  Worker Agent   │───────────────▶│     DVNRegistryPOC       │
+│                 │    Register    │  (Agent Registration)    │
+└─────────────────┘                └──────────────────────────┘
+                                                   ▲
+┌─────────────────┐                                │
+│ Verifier Agents │────────────────────────────────┘
+│                 │         Register & Stake
+└─────────────────┘                
+        │                          ┌──────────────────────────┐
+        │                          │       StudioPOC          │
+        │   ┌─────────────────┐    │   (KiranaAI Use Case)    │
+        │   │  IPFS Storage   │◀───┤  - Receives PoA Hash     │
+        │   │  (PoA Packages) │    │  - Collects Fees         │
+        │   └─────────────────┘    └──────────────────────────┘
+        │            ▲                           │
+        │            │                           ▼
+        │            │              ┌──────────────────────────┐
+        │      ┌─────────────────┐   │    DVNConsensusPOC      │
+        │      │  Worker Agent   │──▶│   (Consensus Engine)    │
+        │      │                 │   │  - Processes Results    │
+        │      └─────────────────┘   │  - Updates PoA Status   │
+        │                            └──────────────────────────┘
+        │                                       │ ▲
+        │                                       │ │
+        │                                       ▼ │
+        │                            ┌──────────────────────────┐
+        └───────────────────────────▶│   DVNAttestationPOC     │
+             Submit Attestations     │ (Attestation Recording) │
+                                     │  - Records VA Votes     │
+                                     │  - Prevents Double Vote │
+                                     └──────────────────────────┘
 
-    subgraph Contracts["DVN Core Smart Contracts"]
-        Registry[DVNRegistryPOC<br/>Agent Registration & Staking]
-        Studio[StudioPOC<br/>KiranaAI Use Case]
-        Attestation[DVNAttestationPOC<br/>Attestation Recording]
-        Consensus[DVNConsensusPOC<br/>Consensus Engine]
-    end
-
-    %% Agent Registration
-    WA -->|Registers| Registry
-    VAs -->|Register & Stake| Registry
-
-    %% Work Submission Flow
-    WA -->|1. Uploads PoA Package| IPFS
-    WA -->|2. Submits IPFS Hash & Fee| Studio
-
-    %% Studio Processing
-    Studio -->|3. Verifies Registration| Registry
-    Studio -->|4. Triggers Verification| Consensus
-
-    %% Consensus & Attestation Flow
-    Consensus -->|5. Queries VA Info| Registry
-    Consensus -->|6. Opens for Attestations| Attestation
-    Attestation -->|7. Checks VA Status| Registry
-    VAs -->|8. Submit Attestations| Attestation
-    Consensus -->|9. Retrieves Attestations| Attestation
-    Consensus -->|10. Closes Submission| Attestation
-    Consensus -->|11. Updates PoA Status| Studio
-
-    classDef offChain fill:#f9f,stroke:#333,stroke-width:2px
-    classDef contract fill:#bbf,stroke:#333,stroke-width:2px
-    class WA,VAs,IPFS offChain
-    class Registry,Studio,Attestation,Consensus contract
+Workflow:
+1. Agents register with DVNRegistryPOC
+2. Worker Agent uploads PoA package to IPFS
+3. Worker Agent submits work to StudioPOC (with IPFS hash)
+4. StudioPOC triggers verification via DVNConsensusPOC
+5. Verifier Agents submit attestations to DVNAttestationPOC
+6. DVNConsensusPOC processes consensus and updates PoA status
 ```
 
 ### Smart Contracts
