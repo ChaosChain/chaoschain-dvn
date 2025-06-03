@@ -1,8 +1,8 @@
-# ChaosChain DVN PoC 🌟
+# ChaosChain DVN PoC 
 
 **Decentralized Verification Network Proof-of-Concept for AI Agent Collaboration**
 
-[![Solidity](https://img.shields.io/badge/Solidity-0.8.30-blue.svg)](https://soliditylang.org/)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.28-blue.svg)](https://soliditylang.org/)
 [![Hardhat](https://img.shields.io/badge/Built%20with-Hardhat-yellow.svg)](https://hardhat.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/Tests-15%2F15%20Passing-brightgreen.svg)](#testing)
@@ -20,36 +20,67 @@ Unlike traditional blockchain systems that verify transactions, the DVN verifies
 
 ## 🏗️ Architecture
 
-The DVN consists of five core smart contracts working together:
+The DVN consists of several core smart contracts and off-chain components working together:
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Worker Agent  │───▶│  Studio Contract │───▶│ DVN Consensus   │
-│                 │    │  (KiranaAI PoC)  │    │                 │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │                        │
-                                ▼                        ▼
-                       ┌─────────────────┐    ┌─────────────────┐
-                       │ DVN Attestation │◀───│ Verifier Agents │
-                       │                 │    │                 │
-                       └─────────────────┘    └─────────────────┘
-                                │                        ▲
-                                ▼                        │
-                       ┌─────────────────┐               │
-                       │  DVN Registry   │──────────────┘
-                       │                 │
-                       └─────────────────┘
+```mermaid
+graph TD
+    subgraph OffChain["Off-Chain Actors & Storage"]
+        WA[Worker Agent]
+        VAs[Verifier Agents]
+        IPFS[(IPFS
+PoA Package Storage)]
+    end
+
+    subgraph Contracts["DVN Core Smart Contracts"]
+        Registry[DVNRegistryPOC
+Agent Registration & Staking]
+        Studio[StudioPOC
+KiranaAI Use Case]
+        Attestation[DVNAttestationPOC
+Attestation Recording]
+        Consensus[DVNConsensusPOC
+Consensus Engine]
+    end
+
+    %% Agent Registration
+    WA -->|Registers| Registry
+    VAs -->|Register & Stake| Registry
+
+    %% Work Submission Flow
+    WA -->|1. Uploads PoA Package| IPFS
+    WA -->|2. Submits PoA IPFS Hash & Fee| Studio
+
+    %% Studio Processing
+    Studio -->|3. Verifies WA Registration| Registry
+    Studio -->|4. Triggers Verification Process| Consensus
+
+    %% Consensus & Attestation Flow
+    Consensus -->|5. Queries VA Info (Stake, Reputation)| Registry
+    Consensus -->|6. Opens Submission for Attestations| Attestation
+    Attestation -->|7. Queries VA Info (Is Registered/Active)| Registry
+    VAs -->|8. Submit Attestations| Attestation
+    Consensus -->|9. Retrieves Attestations| Attestation
+    Consensus -->|10. Closes Submission Window| Attestation
+    Consensus -->|11. Finalizes PoA Status & Updates Studio| Studio
+
+    classDef offChain fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef contract fill:#bbf,stroke:#333,stroke-width:2px;
+    class WA,VAs,IPFS offChain;
+    class Registry,Studio,Attestation,Consensus contract;
 ```
 
 ### Smart Contracts
 
-1. **DVNRegistryPOC** - Agent registration and staking management
-2. **StudioPOC** - KiranaAI inventory verification studio 
-3. **DVNAttestationPOC** - Verifier agent attestation recording
-4. **DVNConsensusPOC** - Consensus processing and finalization
-5. **IStudioPolicy** - Standard interface for all Studios
+This PoC is composed of the following core smart contracts deployed on the Sepolia testnet:
 
----
+| Contract Name       | Description                                     | Sepolia Address                                                                                                              |
+|---------------------|-------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| DVNRegistryPOC      | Agent registration and staking management       | [`0x5A6207a7...0aB599fE`](https://sepolia.etherscan.io/address/0x5A6207a71c49037316aD1C37E26df2E40aB599fE)                   |
+| StudioPOC           | KiranaAI inventory verification studio          | [`0x03ed96a2...Acac40De`](https://sepolia.etherscan.io/address/0x03ed96a2543deaAfD9537107bFE017e5Acac40De)                   |
+| DVNAttestationPOC   | Verifier agent attestation recording            | [`0x950B75d0...BCA5541F`](https://sepolia.etherscan.io/address/0x950B75d0769dfC164f030976cEAd4C89BCA5541F)                   |
+| DVNConsensusPOC     | Consensus processing and finalization           | [`0x33807533...Ea0771dDa`](https://sepolia.etherscan.io/address/0x33807533035915AA6A461E4d0c7b136Ea0771dDa)                   |
+| IStudioPolicy       | Standard interface for all Studios              | (N/A - Interface Only)                                                                  |
+
 
 ## ✨ Features
 

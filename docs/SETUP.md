@@ -64,7 +64,7 @@ npm run compile
 
 Expected output:
 ```
-Compiling 5 files with 0.8.19
+Compiling 5 files with 0.8.30
 Compilation finished successfully
 ```
 

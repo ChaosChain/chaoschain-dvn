@@ -95,7 +95,7 @@ We welcome several types of contributions:
 ### Coding Standards
 
 #### Solidity Contracts
-- Use Solidity 0.8.30+
+- Use Solidity 0.8.28+
 - Follow [Solidity Style Guide](https://docs.soliditylang.org/en/latest/style-guide.html)
 - Include comprehensive NatSpec documentation
 - Use OpenZeppelin libraries for security

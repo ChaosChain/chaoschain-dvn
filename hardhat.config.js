@@ -8,7 +8,7 @@ require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.30",
+    version: "0.8.28",
     settings: {
       optimizer: {
         enabled: true,
@@ -31,8 +31,7 @@ module.exports = {
       url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111,
-      gas: 6000000,
-      gasPrice: 20000000000 // 20 gwei
+      gas: 3000000
     }
   },
   etherscan: {
