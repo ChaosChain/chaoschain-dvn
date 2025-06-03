@@ -22,7 +22,7 @@ Unlike traditional blockchain systems that verify transactions, the DVN verifies
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           ChaosChain DVN Architecture                        │
+│                           ChaosChain DVN Architecture                       │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 Off-Chain Components                Smart Contracts (Sepolia)
@@ -43,30 +43,37 @@ Off-Chain Components                Smart Contracts (Sepolia)
         │   └─────────────────┘    └──────────────────────────┘
         │            ▲                           │
         │            │                           ▼
-        │            │              ┌──────────────────────────┐
+        │            │               ┌─────────────────────────┐
         │      ┌─────────────────┐   │    DVNConsensusPOC      │
         │      │  Worker Agent   │──▶│   (Consensus Engine)    │
         │      │                 │   │  - Processes Results    │
         │      └─────────────────┘   │  - Updates PoA Status   │
-        │                            └──────────────────────────┘
+        │                            └─────────────────────────┘
         │                                       │ ▲
         │                                       │ │
         │                                       ▼ │
-        │                            ┌──────────────────────────┐
+        │                            ┌─────────────────────────┐
         └───────────────────────────▶│   DVNAttestationPOC     │
              Submit Attestations     │ (Attestation Recording) │
                                      │  - Records VA Votes     │
                                      │  - Prevents Double Vote │
-                                     └──────────────────────────┘
-
-Workflow:
-1. Agents register with DVNRegistryPOC
-2. Worker Agent uploads PoA package to IPFS
-3. Worker Agent submits work to StudioPOC (with IPFS hash)
-4. StudioPOC triggers verification via DVNConsensusPOC
-5. Verifier Agents submit attestations to DVNAttestationPOC
-6. DVNConsensusPOC processes consensus and updates PoA status
+                                     └─────────────────────────┘
 ```
+
+### Workflow
+
+1.  **Agent Registration:** Worker Agents (WAs) and Verifier Agents (VAs) register with `DVNRegistryPOC.sol`, with VAs performing a mock stake.
+2.  **Work Package Creation & Upload:** A WA performs a task defined by a Studio (e.g., the "KiranaAI-POC-Studio"). The WA then creates a **"Work Submission Package"** (e.g., a JSON file containing task details, outputs, and context) and uploads this package to IPFS.
+3.  **Work Submission to Studio:** The WA submits a reference to this Work Submission Package (the IPFS hash) to the `StudioPOC.sol` contract, initiating a new Proof-of-Agency lifecycle. This generates a unique `poaId`.
+4.  **Verification Triggered & Attestation:**
+    *   The submission to `StudioPOC.sol` signals that a new `poaId` is ready for verification.
+    *   Registered and staked VAs monitor for these new submissions (e.g., by listening to `WorkSubmitted` events).
+    *   VAs fetch the Work Submission Package from IPFS, evaluate it against the Studio's criteria, and submit their attestations (approve/reject) to `DVNAttestationPOC.sol`, referencing the `poaId`.
+5.  **Consensus & Proof-of-Agency Finalization:**
+    *   After attestations are collected, the `DVNConsensusPOC.sol` contract processes these attestations for the given `poaId`.
+    *   Based on its defined consensus logic (e.g., majority vote), it determines if the work is valid.
+    *   `DVNConsensusPOC.sol` then instructs `StudioPOC.sol` to update the status of the `poaId` to `VERIFIED` or `REJECTED`.
+6.  **Proof-of-Agency Recorded:** If the status is `VERIFIED`, the `poaId` (linked to the original submission details and its `VERIFIED` status on-chain in `StudioPOC.sol`) now serves as the immutable **Proof-of-Agency**. An event like `ProofOfAgencyFinalized` confirms this.
 
 ### Smart Contracts
 
