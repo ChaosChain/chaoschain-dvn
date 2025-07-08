@@ -289,9 +289,10 @@ The fuzz tests cover:
 
 ## 🔗 Related Documentation
 
-- [Audit Report](./final_audit_agent_report_1.pdf): Original audit findings
-- [Contract Source Code](./contracts/): DVN contract implementations
+- [Audit Report](../final_audit_agent_report_1.pdf): Original audit findings
+- [Contract Source Code](../contracts/): DVN contract implementations
 - [Foundry Documentation](https://book.getfoundry.sh/): Foundry framework reference
+- [Validation Report](./FUZZ_TESTS_VALIDATION_REPORT.md): Test execution results and validation
 
 ## 💡 Additional Security Considerations
 
